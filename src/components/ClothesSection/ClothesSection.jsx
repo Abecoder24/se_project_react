@@ -1,7 +1,7 @@
 import './ClothesSection.css'
 import { useContext } from 'react'
 import { defaultClothingItems } from "../../utils/constants"
-import {MyFunctionContext} from "../contexts/MyFunctionContext"
+import {MyFunctionContext} from "../../utils/contexts/MyFunctionContext"
 import ItemCard from "../ItemCard/ItemCard"
 const ClothesSection = ({handleCardClick}) => {
     const {handleAddClick} = useContext(MyFunctionContext)
