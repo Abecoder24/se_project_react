@@ -1,0 +1,26 @@
+.clothes-section{
+    width: 100%;
+}
+.clothes-section__items{
+    display: flex;
+    flex-wrap: wrap;    
+    gap: 20px;
+}
+.clothes-section__content{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 16px 0;
+}
+.clothes-section__addBtn{
+    background-color: transparent;
+    border: 0;
+    padding: 7px;
+    color: rgb(88, 88, 88);
+    border-radius: 7px;
+}
+.clothes-section__addBtn:hover{
+    cursor: pointer;
+    background-color: rgb(88, 88, 88);
+    color: white;
+}
