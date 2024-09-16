@@ -1,6 +1,6 @@
 import "./ModalWithForm.css"
 import closeIcon from "../../assets/close-icon.png";
-function ModalWithForm({ children, buttonText, title, isOpen, handleCloseClick, handleFormSubmit, formData}) {
+function ModalWithForm({ children, buttonText, title, isOpen, handleCloseClick, handleFormSubmit, formData, submitButtonClass}) {
     return <div className={`modal ${ isOpen && "modal_opened"}`}>
         <div className="modal__content">
             <h2 className="modal__title">{title}</h2>
@@ -9,7 +9,7 @@ function ModalWithForm({ children, buttonText, title, isOpen, handleCloseClick, 
                 handleFormSubmit(e, formData)
             }}>
                 {children}
-                <button type="submit" className="modal__submit">{buttonText}</button>
+                <button type="submit" className={`modal__submit ${submitButtonClass}`}>{buttonText}</button>
             </form>
         </div>
     </div>

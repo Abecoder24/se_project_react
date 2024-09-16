@@ -1,9 +1,8 @@
 import './ClothesSection.css'
 import { useContext } from 'react'
-import { defaultClothingItems } from "../../utils/constants"
 import {MyFunctionContext} from "../../utils/contexts/MyFunctionContext"
 import ItemCard from "../ItemCard/ItemCard"
-const ClothesSection = ({handleCardClick}) => {
+const ClothesSection = ({handleCardClick, clothingItems}) => {
     const {handleAddClick} = useContext(MyFunctionContext)
     return <div className="clothes-section">
         <div className="clothes-section__content">
@@ -12,7 +11,7 @@ const ClothesSection = ({handleCardClick}) => {
         </div>
         <ul className="clothes-section__items">
             {
-                defaultClothingItems
+                clothingItems
                     .map((item) => {
                         return <ItemCard key={item._id} item={item} onCardClick={handleCardClick} />
                     })

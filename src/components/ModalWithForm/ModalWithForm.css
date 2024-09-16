@@ -53,6 +53,7 @@
 .modal__label {
     display: flex;
     flex-direction: column;
+    text-align: left;
 }
 
 .modal__form .text__input {
@@ -72,6 +73,7 @@
 
 .modal__legend {
     margin-bottom: 12px;
+    text-align: left;
 }
 
 .modal__radio-input {
@@ -93,4 +95,9 @@
     border: 0;
     border-radius: 4px;
     font-size: 16px;
+    margin: 0 !important;
+
+}
+.fullyVisible{
+    background-color: rgba(0, 0, 0, 1);    
 }

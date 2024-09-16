@@ -6,4 +6,4 @@ function getItem(){
     })
 }
 
-export {getItem}
+export {getItem, baseUrl}
