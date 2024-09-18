@@ -40,15 +40,19 @@
     cursor: pointer;
 }
 
-.modalalert__title, .modalalert__title-2 {
+.modalalert__title,
+.modalalert__title-2 {
     font-size: 16px;
     text-align: center;
 }
-.modalalert__form{
+
+.modalalert__form {
     text-align: center;
     padding: 14px;
 }
-.modalalert__submit, .modalalert__cancel {
+
+.modalalert__submit,
+.modalalert__cancel {
     height: 36px;
     color: white;
     border: 0;
@@ -60,10 +64,12 @@
     color: rgb(255, 76, 0);
     padding: 0 7px;
 }
-.modalalert__cancel{
+
+.modalalert__cancel {
     color: black;
 }
-.modalalert__buttons:hover{
+
+.modalalert__buttons:hover {
     border: 1px solid rgb(255, 76, 0);
     cursor: pointer;
 }

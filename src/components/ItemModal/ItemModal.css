@@ -14,7 +14,8 @@
     gap: 12px;
     position: relative;
 }
-.modal__deleteBtn{
+
+.modal__deleteBtn {
     position: absolute;
     top: 0;
     right: 0;
@@ -24,7 +25,8 @@
     border-radius: 5px;
     border: 0;
 }
-.modal__deleteBtn:hover{
+
+.modal__deleteBtn:hover {
     cursor: pointer;
     color: white;
     background-color: rgb(255, 76, 0);

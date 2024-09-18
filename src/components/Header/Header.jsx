@@ -15,7 +15,7 @@ function Header({ handleAddClick, weatherData }) {
             <div className="header__button-container">
                 <ToggleSwitch />
                 <button className="header__add-clothes-btn" onClick={handleAddClick}>+ Add clothes</button>
-                
+
                 <Link to="/profile" className="header__link">
                     <div className="header__user-container">
                         <p className="header__username">Abraham Tongi</p>

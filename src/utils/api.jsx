@@ -30,9 +30,6 @@ function deleteItem(id) {
 
 function checkResponse(res) {
     if (res.ok) {
-        console.log('what')
-        console.log(res)
-        console.log('what')
         let jsonParsable = res.headers.get('Content-Type', '').includes('application/json')
         if (jsonParsable) {
             return res.json()
@@ -44,4 +41,4 @@ function checkResponse(res) {
     }
 }
 
-export { getItem, addItem, deleteItem }
+export { getItem, addItem, deleteItem, checkResponse }

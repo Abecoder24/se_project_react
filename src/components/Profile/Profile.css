@@ -1,10 +1,12 @@
-.profile{
+.profile {
     display: flex;
 }
-.profile__sidebar{
+
+.profile__sidebar {
     width: 20%;
     padding: 16px 0;
 }
-.profile__clothing-items{
+
+.profile__clothing-items {
     width: 80%;
 }

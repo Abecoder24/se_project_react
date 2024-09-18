@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
 
-const AddItemModal = ({ activeModal, closeActiveModal, handleAddItem, formSetter, formGetter}) => {
-    const {setClothName,setClothImageURL,setClothWeatherType} = formSetter
-    const {clothName, clothImageURL, clothWeatherType, submitButtonClass} = formGetter
+const AddItemModal = ({ activeModal, closeActiveModal, handleAddItem, formSetter, formGetter }) => {
+    const { setClothName, setClothImageURL, setClothWeatherType } = formSetter
+    const { clothName, clothImageURL, clothWeatherType, submitButtonClass } = formGetter
     return <ModalWithForm buttonText={"Add garment"} title={"Add garment"} isOpen={activeModal === "add-garment"} handleCloseClick={closeActiveModal} handleFormSubmit={handleAddItem} formData={{ clothName, clothImageURL, clothWeatherType }} submitButtonClass={submitButtonClass}>
         <label htmlFor="name" className="modal__label">
             Name <input type="text" className="text__input modal__input" id="name" placeholder="Name" onChange={(e) => setClothName(e.target.value)} value={clothName} required />

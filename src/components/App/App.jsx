@@ -63,7 +63,7 @@ function App() {
     }).catch(console.error)
 
   }
-  function clearAddItemForm(){
+  function clearAddItemForm() {
     setClothName("")
     setClothImageURL("")
     setClothWeatherType("")
@@ -90,7 +90,6 @@ function App() {
   useEffect(() => {
     getItem().then(data => {
       setClothingItems(data)
-      console.log(data)
     }).catch(console.error)
   }, [])
 
@@ -124,7 +123,7 @@ function App() {
           </MyFunctionContext.Provider>
           <Footer />
         </div>
-        <AddItemModal closeActiveModal={closeActiveModal} activeModal={activeModal} handleAddItem={handleAddItem} formSetter={{setClothName,setClothImageURL,setClothWeatherType}} formGetter={{clothName, clothImageURL, clothWeatherType, submitButtonClass}}/>
+        <AddItemModal closeActiveModal={closeActiveModal} activeModal={activeModal} handleAddItem={handleAddItem} formSetter={{ setClothName, setClothImageURL, setClothWeatherType }} formGetter={{ clothName, clothImageURL, clothWeatherType, submitButtonClass }} />
         <ItemModal isOpen={activeModal === "preview"} card={selectedCard} handleCloseClick={closeActiveModal} showConfirmDeleteModal={showConfirmDeleteModal} />
         <ConfirmDeleteModal isOpen={activeModal === "confirm"} handleCloseClick={closeActiveModal} handleDeleteCard={handleDeleteCard} />
       </CurrentTemperatureUnitContext.Provider>
