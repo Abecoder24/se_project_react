@@ -1,0 +1,11 @@
+.footer {
+    display: flex;
+    justify-content: space-between;
+    margin: 171px auto 24px;
+    width: 100%;
+}
+
+.footer>p {
+    font-size: 16px;
+    line-height: 20px;
+}
