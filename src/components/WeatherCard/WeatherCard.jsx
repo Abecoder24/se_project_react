@@ -19,9 +19,11 @@ function WeatherCard({ weatherData }) {
     }
 
 
-    return <section className="weather-card">
-        <p className="weather-card__temp">{weatherData.temp[currentTemperatureUnit]} &deg; {currentTemperatureUnit}</p>
-        <img src={weatherOption?.url} alt={`Card showing ${weatherOption?.isDay ? "Day" : "night"} ${weatherOption?.condition != undefined ? weatherOption?.condition : ""} weather`} className="weather-card__image" />
-    </section>
+    return (
+        <section className="weather-card">
+            <p className="weather-card__temp">{weatherData.temp[currentTemperatureUnit]} &deg; {currentTemperatureUnit}</p>
+            <img src={weatherOption?.url} alt={`Card showing ${weatherOption?.isDay ? "Day" : "night"} ${weatherOption?.condition != undefined ? weatherOption?.condition : ""} weather`} className="weather-card__image" />
+        </section>
+    )
 }
 export default WeatherCard
