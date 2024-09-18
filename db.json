@@ -55,12 +55,6 @@
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Loafers.png?etag=dc2d6e1ca7b297597406e35c40aef030"
     },
     {
-      "_id": 9,
-      "name": "Sandals",
-      "weather": "hot",
-      "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/Sandals.png?etag=9bea85a77c0306586d2b71a33b626d41"
-    },
-    {
       "_id": 11,
       "name": "Shorts",
       "weather": "Hot",
@@ -89,6 +83,54 @@
       "name": "T-Shirt",
       "weather": "hot",
       "imageUrl": "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/wtwr-project/T-Shirt.png?etag=44ed1963c44ab19cd2f5011522c5fc09"
+    },
+    {
+      "name": "",
+      "weather": "",
+      "imageUrl": "",
+      "_id": 20
+    },
+    {
+      "name": "ssfds",
+      "weather": "",
+      "imageUrl": "",
+      "_id": 22
+    },
+    {
+      "name": "aaasas",
+      "weather": "zz",
+      "imageUrl": "aaafdf",
+      "_id": 24
+    },
+    {
+      "name": "sdsd",
+      "weather": "zz",
+      "imageUrl": "zz",
+      "_id": 25
+    },
+    {
+      "name": "zz",
+      "weather": "zz",
+      "imageUrl": "zz",
+      "_id": 26
+    },
+    {
+      "name": "aaa",
+      "weather": "warm",
+      "imageUrl": "https://sneakernews.com/wp-content/uploads/2019/12/adidas-Yeezy-Boost-700-v3-FW4980-12.jpg",
+      "_id": 28
+    },
+    {
+      "name": "aaa",
+      "weather": "warm",
+      "imageUrl": "https://sneakernews.com/wp-content/uploads/2019/12/adidas-Yeezy-Boost-700-v3-FW4980-12.jpg",
+      "_id": 29
+    },
+    {
+      "name": "aaa",
+      "weather": "hot",
+      "imageUrl": "https://sneakernews.com/wp-content/uploads/2019/12/adidas-Yeezy-Boost-700-v3-FW4980-12.jpg",
+      "_id": 30
     }
   ]
 }

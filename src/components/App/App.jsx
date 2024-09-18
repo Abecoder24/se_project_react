@@ -27,8 +27,20 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({})
   const [currentTemperatureUnit, setCurrentTemperatureUnit] = useState("F")
   const [clothingItems, setClothingItems] = useState([])
-  console.log(activeModal)
-  console.log(activeModal === "confirm")
+
+  const [clothName, setClothName] = useState("")
+  const [clothImageURL, setClothImageURL] = useState("")
+  const [clothWeatherType, setClothWeatherType] = useState("")
+  const [submitButtonClass, setSubmitButtonClass] = useState('notFullyVisible')
+
+  useEffect(() => {
+    if (clothName.length > 0 && clothImageURL.length > 0 && clothWeatherType != "") {
+      setSubmitButtonClass('fullyVisible')
+    } else {
+      setSubmitButtonClass('notFullyVisible')
+    }
+  }, [clothName, clothImageURL, clothWeatherType])
+
   const handleAddClick = () => {
     setActiveModal("add-garment")
   }
@@ -44,12 +56,18 @@ function App() {
   }
   const handleAddItem = (e, data) => {
     e.preventDefault()
-    console.log(data)
     addItem(data).then(resData => {
       setClothingItems([resData, ...clothingItems])
       closeActiveModal()
+      clearAddItemForm()
     }).catch(console.error)
 
+  }
+  function clearAddItemForm(){
+    setClothName("")
+    setClothImageURL("")
+    setClothWeatherType("")
+    setSubmitButtonClass("notFullyVisible")
   }
   const handleDeleteCard = (e) => {
     e.preventDefault()
@@ -106,7 +124,7 @@ function App() {
           </MyFunctionContext.Provider>
           <Footer />
         </div>
-        <AddItemModal closeActiveModal={closeActiveModal} activeModal={activeModal} handleAddItem={handleAddItem} />
+        <AddItemModal closeActiveModal={closeActiveModal} activeModal={activeModal} handleAddItem={handleAddItem} formSetter={{setClothName,setClothImageURL,setClothWeatherType}} formGetter={{clothName, clothImageURL, clothWeatherType, submitButtonClass}}/>
         <ItemModal isOpen={activeModal === "preview"} card={selectedCard} handleCloseClick={closeActiveModal} showConfirmDeleteModal={showConfirmDeleteModal} />
         <ConfirmDeleteModal isOpen={activeModal === "confirm"} handleCloseClick={closeActiveModal} handleDeleteCard={handleDeleteCard} />
       </CurrentTemperatureUnitContext.Provider>
