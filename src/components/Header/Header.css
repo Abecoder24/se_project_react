@@ -1,0 +1,69 @@
+.header {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    margin: 0 auto 28px auto;
+}
+
+.header__logo {
+    margin-right: 24px;
+}
+
+.header__date-and-location {
+    margin: 0;
+}
+
+.header__button-container {
+    margin: 0 0 0 auto;
+    display: flex;
+}
+
+.header__add-clothes-btn {
+    margin-left: 20px;
+    border: 0;
+    background-color: transparent;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.header__login-btn,
+.header__register-btn {
+    margin-left: 20px;
+    border: 0;
+    background-color: transparent;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.header__add-clothes-btn:hover,
+.header__login-btn:hover,
+.header__register-btn:hover {
+    cursor: pointer;
+    color: gray;
+}
+
+.header__user-container {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.header__avatar {
+    width: 40px;
+    height: 40px;
+    border: 1px solid gray;
+    border-radius: 40px;
+}
+
+.header__username {
+    margin: 0;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24px;
+}
+
+.header__link {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #000;
+}
