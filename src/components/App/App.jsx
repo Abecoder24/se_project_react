@@ -17,7 +17,7 @@ import LoginModal from '../LoginModal/LoginModal'
 import RegisterModal from '../RegisterModal/RegisterModal'
 import { CurrentUserContext } from '../../utils/contexts/CurrentUserContext'
 import EditProfileModal from '../EditProfileModal/EditProfileModal'
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
+import ProtectedRoute from '../../utils/ProtectedRoute/ProtectedRoute'
 
 function App() {
   //Navigate
@@ -533,7 +533,7 @@ function App() {
     }
     handleSubmit(makeRequest)
   }
-  
+
   //Handle Item Like
   const handleCardLike = (id, isLiked) => {
     !isLiked

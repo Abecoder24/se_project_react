@@ -7,17 +7,17 @@ const RegisterModal = ({ isLoading, handleAltClick, closeActiveModal, activeModa
     }
     return (
         <ModalWithForm buttonText={isLoading ? "Signing Up..." : "SignUp"} title={"Sign Up"} isOpen={activeModal === "register"} handleCloseClick={closeActiveModal} submitButtonClass={submitButtonClass} altButtonText={"Login"} handleAltClick={handleAltClick} handleFormSubmit={handleRegister} formValidation={formValidation} formData={formGetter} formErrors={formErrors}>
-            <label htmlFor="email" className={`modal__label ${!registerEmailValidation.isValid && registerEmailValidation.message != "" && 'notValid'} ${formErrors.email.message != "" && 'notValid'}`}>
+            <label htmlFor="regMmail" className={`modal__label ${!registerEmailValidation.isValid && registerEmailValidation.message != "" && 'notValid'} ${formErrors.email.message != "" && 'notValid'}`}>
                 <span>
                     Email* {!registerEmailValidation.isValid && registerEmailValidation.message != "" && <small>( {registerEmailValidation.message} )</small>} {formErrors.email.message != "" && <label className="modal__label-error">{formErrors.email.message}</label>}
                 </span>
-                <input type="text" className="text__input modal__input" id="email" name="email" placeholder="Email" onChange={inputChange} value={formGetter.email} required />
+                <input type="text" className="text__input modal__input" id="regMmail" name="email" placeholder="Email" onChange={inputChange} value={formGetter.email} required />
             </label>
-            <label htmlFor="password" className={`modal__label ${registerPasswordValidation.message != "" && !registerPasswordValidation.isValid && "notValid"}`}>
+            <label htmlFor="resPassword" className={`modal__label ${registerPasswordValidation.message != "" && !registerPasswordValidation.isValid && "notValid"}`}>
                 <span>
                     Password* {!registerPasswordValidation.isValid && registerPasswordValidation.message != "" && <small>( {registerPasswordValidation.message} )</small>}
                 </span>
-                <input type="password" className="text__input input__image" id="password" name="password" placeholder="Password" onChange={inputChange} value={formGetter.password} required />
+                <input type="password" className="text__input input__image" id="resPassword" name="password" placeholder="Password" onChange={inputChange} value={formGetter.password} required />
             </label>
             <label htmlFor="confirmpassword" className={`modal__label ${registerConfirmPasswordValidation.message != "" && !registerConfirmPasswordValidation.isValid && "notValid"}`}>
                 <span>
@@ -25,17 +25,17 @@ const RegisterModal = ({ isLoading, handleAltClick, closeActiveModal, activeModa
                 </span>
                 <input type="password" className="text__input input__image" id="confirmpassword" name="confirmPassword" placeholder="Confirm Password" onChange={inputChange} value={formGetter.confirmPassword} required />
             </label>
-            <label htmlFor="name" className={`modal__label ${registerNameValidation.message != "" && !registerNameValidation.isValid && 'notValid'}`}>
+            <label htmlFor="regName" className={`modal__label ${registerNameValidation.message != "" && !registerNameValidation.isValid && 'notValid'}`}>
                 <span>
                     Name* {!registerNameValidation.isValid && registerNameValidation.message != "" && <small>( {registerNameValidation.message} )</small>}
                 </span>
-                <input type="text" className="text__input modal__input" id="name" name="name" placeholder="Name" onChange={inputChange} value={formGetter.name} required />
+                <input type="text" className="text__input modal__input" id="regName" name="name" placeholder="Name" onChange={inputChange} value={formGetter.name} required />
             </label>
-            <label htmlFor="avatar" className={`modal__label ${!registerAvatarValidation.isValid && registerAvatarValidation.message != "" && 'notValid'}`}>
+            <label htmlFor="regAvatar" className={`modal__label ${!registerAvatarValidation.isValid && registerAvatarValidation.message != "" && 'notValid'}`}>
                 <span>
                     Avatar URL* {!registerAvatarValidation.isValid && registerAvatarValidation.message != "" && <small>( {registerAvatarValidation.message} )</small>}
                 </span>
-                <input type="text" className="text__input input__image" id="avatar" name="avatar" placeholder="Avatar URL" onChange={inputChange} value={formGetter.avatar} required />
+                <input type="text" className="text__input input__image" id="regAvatar" name="avatar" placeholder="Avatar URL" onChange={inputChange} value={formGetter.avatar} required />
             </label>
             {formErrors.registerForm.message != "" && <span className="modal__label-error">{formErrors.registerForm.message}</span>}
             {formSuccess.registerForm.message != "" && <span className="modal__label-success">{formSuccess.registerForm.message}</span>}

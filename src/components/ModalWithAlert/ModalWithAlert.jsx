@@ -7,7 +7,10 @@ function ModalWithAlert({ title, isOpen, handleCloseClick, handleFormSubmit, but
                 <h2 className="modalalert__title">{title}</h2>
                 <h3 className="modalalert__title-2">This action is irreversible.</h3>
                 <img src={closeIcon} className="modalalert__close" onClick={handleCloseClick} alt="Close Button" />
-                <form action="" className="modalalert__form" onSubmit={handleFormSubmit}>
+                <form action="" className="modalalert__form" onSubmit={(e)=> {
+                    e.preventDefault()
+                    handleFormSubmit()
+                }}>
                     <button type="submit" className={`modalalert__submit modalalert__buttons`}>{buttonText}</button>
                 </form>
                 <button type="submit" className={`modalalert__cancel modalalert__buttons`} onClick={handleCloseClick}>Cancel</button>
