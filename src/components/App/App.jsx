@@ -17,7 +17,7 @@ import LoginModal from '../LoginModal/LoginModal'
 import RegisterModal from '../RegisterModal/RegisterModal'
 import { CurrentUserContext } from '../../utils/contexts/CurrentUserContext'
 import EditProfileModal from '../EditProfileModal/EditProfileModal'
-import ProtectedRoute from '../../utils/ProtectedRoute/ProtectedRoute'
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute'
 
 function App() {
   //Navigate
@@ -542,7 +542,6 @@ function App() {
         // the first argument is the card's id
         .addCardLike(id, loginToken)
         .then((updatedCard) => {
-          console.log(updatedCard)
           setClothingItems((cards) =>
             cards.map((item) => (item._id === id ? updatedCard.data : item))
           );
@@ -551,9 +550,8 @@ function App() {
       : // if not, send a request to remove the user's id from the card's likes array
       api
         // the first argument is the card's id
-        .removeCardLike(id, token)
+        .removeCardLike(id, loginToken)
         .then((updatedCard) => {
-          console.log(updatedCard)
           setClothingItems((cards) =>
             cards.map((item) => (item._id === id ? updatedCard.data : item))
           );
@@ -697,10 +695,12 @@ function App() {
       email: "",
       password: ""
     })
-    setProfileFormData({
-      name: currentUser?.name,
-      avatar: currentUser?.avatar
-    })
+    if(currentUser.name && currentUser.avatar){
+      setProfileFormData({
+        name: currentUser.name,
+        avatar: currentUser.avatar
+      })
+    }
   }
 
   return (
