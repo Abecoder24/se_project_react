@@ -62,8 +62,15 @@ function App() {
 
 
   // -- Form Related Hooks --
+  const [isLoading, setIsLoading] = useState(false);
   //Form Submit Button Class
   const [submitButtonClass, setSubmitButtonClass] = useState('notFullyVisible')
+  //Form Success
+  const [formSuccess, setFormSuccess] = useState({
+    registerForm: {
+      message: ""
+    }
+  })
   //Form Errors
   const [formErrors, setFormErrors] = useState({
     email: {
@@ -420,96 +427,120 @@ function App() {
     handleFormErrors(name, "")
     clearFormErrors()
   }
+  //Handle Form Submit
+  function handleSubmit(request) {
+    // start loading
+    setIsLoading(true);
+    request()
+      // we need to close only in `then`
+      .then(res => {
+        if(res != "showSuccess"){
+          closeActiveModal()
+        }
+      }) 
+      // we need to catch possible errors
+      // console.error is used to handle errors if you don’t have any other ways for that
+      .catch(err => {
+        if (err.includes('401')) {
+          handleFormErrors("loginForm", "Email or Password is incorrect")
+        }else if (err.includes('409')) {
+          console.log('Email already Exist')
+          handleFormErrors("email", "Email already Exist")
+        } else {
+          handleFormErrors("loginForm", "Sorry, Something went wrong")
+        }
+      })
+      // and in finally we need to stop loading
+      .finally(() => setIsLoading(false));
+  }
   //Hangle User Login
   const handleLogin = (data) => {
-    api.loginUser(data)
+    function makeRequest(){
+      return api.loginUser(data)
       .then(resData => {
         if (resData.token) {
           localStorage.setItem('jwt', resData.token)
-          closeActiveModal()
           setIsLoggedIn(true)
         } else {
           return Promise.reject('Token Not Found')
         }
       })
-      .catch(err => {
-        console.log(err)
-        if (err.includes('401')) {
-          handleFormErrors("loginForm", "Email or Password is incorrect")
-        } else {
-          handleFormErrors("loginForm", "Sorry, Something went wrong")
-        }
-      })
+    }
+    handleSubmit(makeRequest)
   }
+
   //Handle user Registration
   const handleRegister = (data) => {
-    api.registerUser(data)
+    function makeRequest(){
+      return api.registerUser(data)
       .then(resData => {
+        setIsLoading(false)
         if (resData != undefined) {
-          setActiveModal('login')
-
+          handleFormSuccess("registerForm", "Account created successfully, Please login now")
+          return "showSuccess"
         } else {
           return Promise.reject('Something Went Wrong')
         }
       })
-      .catch(err => {
-        console.log(err)
-        if (err.includes('409')) {
-          console.log('Email already Exist')
-          handleFormErrors("email", "Email already Exist")
-        } else {
-          handleFormErrors("registerForm", "Sorry, Something went wrong")
-        }
-      })
+    }
+    handleSubmit(makeRequest)
   }
   //Handle add Item
-  const handleAddItem = (data) => {
-    api.addItem(data, loginToken).then(resData => {
-      if (resData != undefined) {
-        setClothingItems([resData?.data, ...clothingItems])
-        closeActiveModal()
-        clearAddItemForm()
-      }
-    }).catch(console.error)
-
+  const handleAddItem = (data) => {    
+    function makeRequest(){
+      return api.addItem(data, loginToken).then(resData => {
+        setIsLoading(false)
+        if (resData != undefined) {
+          setClothingItems([resData?.data, ...clothingItems])
+          closeActiveModal()
+          clearAddItemForm()
+        }
+      })
+    }
+    handleSubmit(makeRequest)
   }
   //Handle Item Delete
-  const handleDeleteCard = (e) => {
-    e.preventDefault()
-    api.deleteItem(selectedCard._id, loginToken).then(() => {
-      const updatedClotingItem = clothingItems.filter(item => {
-        return item._id != selectedCard._id
+  const handleDeleteCard = () => {
+    function makeRequest(){
+      return api.deleteItem(selectedCard._id, loginToken).then(() => {
+        setIsLoading(false)
+        const updatedClotingItem = clothingItems.filter(item => {
+          return item._id != selectedCard._id
+        })
+        setClothingItems(updatedClotingItem)
+        closeActiveModal()
       })
-      setClothingItems(updatedClotingItem)
-      closeActiveModal()
-    }).catch(console.error)
+    }
+    handleSubmit(makeRequest)
   }
   //Handle Edit Profile Data
   const handleEditProfile = (data) => {
-    let token = localStorage.getItem('jwt')
-    api.updateUserData(data, token).then(res => {
-      if (res) {
-        closeActiveModal()
-        setCurrentUser((oldData) => (
-          {
-            ...oldData,
-            name: res.name,
-            avatar: res.avatar
-          }
-        )
-        )
-      }
-    }).catch(console.error)
+    function makeRequest(){
+      return api.updateUserData(data, loginToken).then(res => {
+        setIsLoading(false)
+        if (res) {
+          closeActiveModal()
+          setCurrentUser((oldData) => (
+            {
+              ...oldData,
+              name: res.name,
+              avatar: res.avatar
+            }
+          )
+          )
+        }
+      })
+    }
+    handleSubmit(makeRequest)
   }
+  
   //Handle Item Like
   const handleCardLike = (id, isLiked) => {
-    console.log(id, isLiked)
-    const token = localStorage.getItem("jwt");
     !isLiked
       ?
       api
         // the first argument is the card's id
-        .addCardLike(id, token)
+        .addCardLike(id, loginToken)
         .then((updatedCard) => {
           console.log(updatedCard)
           setClothingItems((cards) =>
@@ -549,6 +580,16 @@ function App() {
 
 
 
+  // -- Form Success Related Functions --
+  function handleFormSuccess(key, msg) {
+    setFormSuccess(oldData => ({
+      ...oldData,
+      [key]: {
+        message: msg
+      }
+    }))
+  }
+
   // -- Form Errors Related Functions --
   function handleFormErrors(key, msg) {
     setFormErrors(oldData => ({
@@ -568,7 +609,7 @@ function App() {
   }, [activeModal])
   //Check the Token and Remember Logged In user
   useEffect(() => {
-    let jwtTokken = localStorage.getItem('jwt')
+    const jwtTokken = localStorage.getItem('jwt')
     if (jwtTokken) {
       api.checkToken(jwtTokken).then(resData => {
         if (resData != undefined) {
@@ -678,12 +719,12 @@ function App() {
             </MyFunctionContext.Provider>
             <Footer />
           </div>
-          <LoginModal formErrors={formErrors} handleAltClick={loginRegisterToggle} closeActiveModal={closeActiveModal} activeModal={activeModal} submitButtonClass={submitButtonClass} handleLogin={handleLogin} formGetter={loginFormData} formSetter={setLoginFormData} handleInputChange={handleInputChange} handleValidationChange={handleValidationChange} formInputValidaton={{ loginEmailValidation, loginPasswordValidation }} formValidation={loginFormValidation} />
-          <RegisterModal handleAltClick={loginRegisterToggle} closeActiveModal={closeActiveModal} activeModal={activeModal} formGetter={registerFormData} formSetter={setRegisterFormData} submitButtonClass={submitButtonClass} handleRegister={handleRegister} formInputValidaton={{ registerEmailValidation, registerAvatarValidation, registerNameValidation, registerPasswordValidation, registerConfirmPasswordValidation }} formValidation={registerFormValidation} handleInputChange={handleInputChange} formErrors={formErrors} />
-          <AddItemModal closeActiveModal={closeActiveModal} activeModal={activeModal} handleAddItem={handleAddItem} formGetter={itemForm} formSetter={setItemForm} handleInputChange={handleInputChange} handleValidationChange={handleValidationChange} formInputValidaton={{ itemNameValidation, itemImageUrlValidation, itemWeatherValidation }} submitButtonClass={submitButtonClass} formValidation={addItemFormValidation} />
+          <LoginModal isLoading={isLoading} formErrors={formErrors} handleAltClick={loginRegisterToggle} closeActiveModal={closeActiveModal} activeModal={activeModal} submitButtonClass={submitButtonClass} handleLogin={handleLogin} formGetter={loginFormData} formSetter={setLoginFormData} handleInputChange={handleInputChange} handleValidationChange={handleValidationChange} formInputValidaton={{ loginEmailValidation, loginPasswordValidation }} formValidation={loginFormValidation} />
+          <RegisterModal isLoading={isLoading} handleAltClick={loginRegisterToggle} closeActiveModal={closeActiveModal} activeModal={activeModal} formGetter={registerFormData} formSetter={setRegisterFormData} submitButtonClass={submitButtonClass} handleRegister={handleRegister} formInputValidaton={{ registerEmailValidation, registerAvatarValidation, registerNameValidation, registerPasswordValidation, registerConfirmPasswordValidation }} formValidation={registerFormValidation} handleInputChange={handleInputChange} formErrors={formErrors} formSuccess={formSuccess} />
+          <AddItemModal isLoading={isLoading} closeActiveModal={closeActiveModal} activeModal={activeModal} handleAddItem={handleAddItem} formGetter={itemForm} formSetter={setItemForm} handleInputChange={handleInputChange} handleValidationChange={handleValidationChange} formInputValidaton={{ itemNameValidation, itemImageUrlValidation, itemWeatherValidation }} submitButtonClass={submitButtonClass} formValidation={addItemFormValidation} />
+          <EditProfileModal isLoading={isLoading} activeModal={activeModal} closeActiveModal={closeActiveModal} handleEditProfile={handleEditProfile} formGetter={profileFormData} formSetter={setProfileFormData} formValidation={profileFormValidation} submitButtonClass={submitButtonClass} formInputValidation={{ profileAvatarValidation, profileNameValidation }} handleInputChange={handleInputChange} />
+          <ConfirmDeleteModal isLoading={isLoading} isOpen={activeModal === "confirm"} handleCloseClick={closeActiveModal} handleDeleteCard={handleDeleteCard} />
           <ItemModal isOpen={activeModal === "preview"} card={selectedCard} handleCloseClick={closeActiveModal} showConfirmDeleteModal={showConfirmDeleteModal} />
-          <EditProfileModal activeModal={activeModal} closeActiveModal={closeActiveModal} handleEditProfile={handleEditProfile} formGetter={profileFormData} formSetter={setProfileFormData} formValidation={profileFormValidation} submitButtonClass={submitButtonClass} formInputValidation={{ profileAvatarValidation, profileNameValidation }} handleInputChange={handleInputChange} />
-          <ConfirmDeleteModal isOpen={activeModal === "confirm"} handleCloseClick={closeActiveModal} handleDeleteCard={handleDeleteCard} />
         </CurrentTemperatureUnitContext.Provider>
       </div>
     </CurrentUserContext.Provider>

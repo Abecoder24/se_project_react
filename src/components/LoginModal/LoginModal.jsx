@@ -1,14 +1,14 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
 import './LoginModal.css'
 
-const LoginModal = ({ formErrors, handleAltClick, closeActiveModal, activeModal, submitButtonClass, handleLogin, formGetter, formSetter, handleInputChange, formInputValidaton, formValidation }) => {
+const LoginModal = ({ isLoading, formErrors, handleAltClick, closeActiveModal, activeModal, submitButtonClass, handleLogin, formGetter, formSetter, handleInputChange, formInputValidaton, formValidation }) => {
     const { loginEmailValidation, loginPasswordValidation } = formInputValidaton
     const inputChange = async (e) => {
         handleInputChange(e, formSetter)
     }
 
     return (
-        <ModalWithForm buttonText={"Login"} title={"Login"} isOpen={activeModal === "login"} handleCloseClick={closeActiveModal} handleFormSubmit={handleLogin} formData={formGetter} submitButtonClass={submitButtonClass} altButtonText={'SignUp'} handleAltClick={handleAltClick} formValidation={formValidation}>
+        <ModalWithForm buttonText={isLoading ? "Logging In..." : "Login"} title={"Login"} isOpen={activeModal === "login"} handleCloseClick={closeActiveModal} handleFormSubmit={handleLogin} formData={formGetter} submitButtonClass={submitButtonClass} altButtonText={'SignUp'} handleAltClick={handleAltClick} formValidation={formValidation}>
             <label htmlFor="email" className={`modal__label ${!loginEmailValidation.isValid && loginEmailValidation.message != "" && 'notValid'}`}>
                 <span>
                     Email {!loginEmailValidation.isValid && loginEmailValidation.message != "" && <small>( {loginEmailValidation.message} )</small>}

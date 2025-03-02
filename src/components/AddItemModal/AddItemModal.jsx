@@ -1,6 +1,6 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
 
-const AddItemModal = ({ activeModal, closeActiveModal, handleAddItem, formGetter, formSetter, handleInputChange, formInputValidaton, formValidation, submitButtonClass }) => {
+const AddItemModal = ({ isLoading, activeModal, closeActiveModal, handleAddItem, formGetter, formSetter, handleInputChange, formInputValidaton, formValidation, submitButtonClass }) => {
 
     const { itemNameValidation, itemImageUrlValidation, itemWeatherValidation } = formInputValidaton
     function inputChange(e) {
@@ -8,7 +8,7 @@ const AddItemModal = ({ activeModal, closeActiveModal, handleAddItem, formGetter
     }
 
     return (
-        <ModalWithForm buttonText={"Add garment"} title={"Add garment"} isOpen={activeModal === "add-garment"} handleCloseClick={closeActiveModal} handleFormSubmit={handleAddItem} formData={formGetter} submitButtonClass={submitButtonClass} formValidation={formValidation}>
+        <ModalWithForm buttonText={isLoading ? "Adding..." : "Add garment"} title={"Add garment"} isOpen={activeModal === "add-garment"} handleCloseClick={closeActiveModal} handleFormSubmit={handleAddItem} formData={formGetter} submitButtonClass={submitButtonClass} formValidation={formValidation}>
             <label htmlFor="name" className={`modal__label ${!itemNameValidation.isValid && itemNameValidation.message != "" ? "notValid" : ""}`}>
                 <span>
                     Name {!itemNameValidation.isValid && itemNameValidation.message != "" && <small>( {itemNameValidation.message} )</small>}

@@ -1,12 +1,12 @@
 import ModalWithForm from "../ModalWithForm/ModalWithForm"
 import './RegisterModal.css'
-const RegisterModal = ({ handleAltClick, closeActiveModal, activeModal, formGetter, formSetter, submitButtonClass, handleRegister, formInputValidaton, formValidation, handleInputChange, formErrors }) => {
+const RegisterModal = ({ isLoading, handleAltClick, closeActiveModal, activeModal, formGetter, formSetter, submitButtonClass, handleRegister, formInputValidaton, formValidation, handleInputChange, formErrors, formSuccess }) => {
     const { registerEmailValidation, registerAvatarValidation, registerNameValidation, registerPasswordValidation, registerConfirmPasswordValidation } = formInputValidaton
     function inputChange(e) {
         handleInputChange(e, formSetter)
     }
     return (
-        <ModalWithForm buttonText={"SignUp"} title={"Sign Up"} isOpen={activeModal === "register"} handleCloseClick={closeActiveModal} submitButtonClass={submitButtonClass} altButtonText={"Login"} handleAltClick={handleAltClick} handleFormSubmit={handleRegister} formValidation={formValidation} formData={formGetter} formErrors={formErrors}>
+        <ModalWithForm buttonText={isLoading ? "Signing Up..." : "SignUp"} title={"Sign Up"} isOpen={activeModal === "register"} handleCloseClick={closeActiveModal} submitButtonClass={submitButtonClass} altButtonText={"Login"} handleAltClick={handleAltClick} handleFormSubmit={handleRegister} formValidation={formValidation} formData={formGetter} formErrors={formErrors}>
             <label htmlFor="email" className={`modal__label ${!registerEmailValidation.isValid && registerEmailValidation.message != "" && 'notValid'} ${formErrors.email.message != "" && 'notValid'}`}>
                 <span>
                     Email* {!registerEmailValidation.isValid && registerEmailValidation.message != "" && <small>( {registerEmailValidation.message} )</small>} {formErrors.email.message != "" && <label className="modal__label-error">{formErrors.email.message}</label>}
@@ -38,6 +38,7 @@ const RegisterModal = ({ handleAltClick, closeActiveModal, activeModal, formGett
                 <input type="text" className="text__input input__image" id="avatar" name="avatar" placeholder="Avatar URL" onChange={inputChange} value={formGetter.avatar} required />
             </label>
             {formErrors.registerForm.message != "" && <span className="modal__label-error">{formErrors.registerForm.message}</span>}
+            {formSuccess.registerForm.message != "" && <span className="modal__label-success">{formSuccess.registerForm.message}</span>}
 
 
         </ModalWithForm>

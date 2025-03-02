@@ -1,9 +1,9 @@
 import ModalWithAlert from "../ModalWithAlert/ModalWithAlert"
 
 
-const ConfirmDeleteModal = ({ handleCloseClick, handleDeleteCard, isOpen }) => {
+const ConfirmDeleteModal = ({ isLoading, handleCloseClick, handleDeleteCard, isOpen }) => {
     return (
-        <ModalWithAlert isOpen={isOpen} buttonText={"Yes, delete item"} title={"Are you sure you want to delete this item?"} handleCloseClick={handleCloseClick} handleFormSubmit={handleDeleteCard} >
+        <ModalWithAlert isOpen={isOpen} buttonText={isLoading ? "Deleting..." : "Yes, delete item"} title={"Are you sure you want to delete this item?"} handleCloseClick={handleCloseClick} handleFormSubmit={handleDeleteCard} >
             <label htmlFor="name" className="modal__label">
                 Are you sure?
             </label>
